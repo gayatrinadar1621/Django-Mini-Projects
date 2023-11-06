@@ -1,0 +1,653 @@
+OM SAKTHI PARA SAKTHI
+GURUVADI SARANAM TIRUVADI SARANAM
+
+DJANGO 
+
+* What is Django?
+Django is a Python framework that makes it easier to create web sites using Python.
+Django takes care of the difficult stuff so that you can concentrate on building your web applications.
+Django emphasizes reusability of components, also referred to as DRY (Don't Repeat Yourself), and comes with ready-to-use features like login system, database connection and CRUD operations (Create Read Update Delete).
+
+
+* How to create a Django Project?
+
+Firstly, we have to create a virtual environment
+
+1. open cmd where we want the Django project, open cmd in that location.
+2. python -m venv venv (the name of our virtual environment is venv here)
+3. then type, venv\Scripts\activate
+4. our virtual environment is activated
+5. now install django by pip install django
+6. Django is installed in your virtual environment venv
+7. Now create your project by the following command:
+	django-admin startproject projectname
+
+8. our project is created with a folder projectname
+9. inside that folder we again have a sub folder named projectname that folder has two important files namely --> settings.py and urls.py
+10. now, we create an app where we build our actual project. To create an app we write the following command:
+	python manage.py startapp appname
+11. the appname folder contains important files such as models.py, views.py, etc
+12. now we can edit the different files and create our project.
+
+
+
+
+
+
+
+
+
+
+* MAIN COMPONENTS OF A DJANGO PROJECT
+
+1. APP: 
+We create app after creating a project. The app folder has different files inside it. 
+An app is a web application that has a specific meaning in your project, like a home page, a contact form, or a members database.
+
+
+--------------------------------------------------------------------------------------------------------
+
+2. Views:
+It is a file inside app of your project.
+Django views are Python functions that takes http requests and returns http response, like HTML documents.
+Views are responsible for generating the HTML content that is displayed to the user. They can be used to process user input, perform database queries, and render templates.
+In Django, the logic is usually stored in the views.py file. This is because the view is responsible for processing a user's request and returning the response.
+
+Initially views looks like this:
+
+from django.shortcuts import render
+
+# Create your views here.
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+3. urls
+
+It is a file inside the 'projectname' subfolder by default. But we can also create urls.py inside the app folder with some changes in the root file present in the 'projecname' subfolder
+Django also provides a way to navigate around the different pages in a website.
+When a user requests a URL, Django decides which view it will send it to.
+This is done in a file called urls.py
+
+It takes the requested URL, and matches it with a corresponding view function, this view function or class will handle the request and return an appropriate response.
+A request in Django first comes to urls.py and then goes to the matching function in views.py. Python functions in views.py take the web request from urls.py and give the web response to templates.
+
+Initially urls.py looks like this:
+
+from django.contrib import admin
+from django.urls import path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+]
+
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+4. templates
+
+A Django template is essentially written in HTML, CSS, and Javascript in an HTML file. 
+
+Django templates are a great way to separate your logic from your design. You can use templates to create the front-end of your website, while your logic can be kept in your Python code. This makes it easier to maintain your website and makes it easier to reuse your code.
+
+The template is made up of HTML and Django Template Language (DTL). A template contains both the static and dynamic parts of the desired HTML output. 
+
+Django templates adhere to the DRY (do not repeat yourself) design principle, which requires developers to refrain from repeating themselves while creating a Django application. Different views can use the same template to display data in various formats. 
+
+
+--> Django Template Language
+
+Django templates have their syntax for dealing with variables, tags, expressions, and so on. A context is used to retrieve the value at a web page when a template is rendered. Django includes a templating system known as Django template language (DTL). 
+
+
+
+
+
+
+
+
+
+We can create templates at two level
+
+
+
+A. Project Level
+
+How to crete template at Project level?
+
+a. open settings.py inside the projectname subfolder
+
+b. navigate to DIRS inside the template. It looks like this:
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+c. We modify the DIRS as follows:
+
+'DIRS': [BASE_DIR / 'templates'],
+
+
+d. Create a folder templates inside projectname folder and inside the templates folder create html file which we want to render. 
+
+
+
+e. In views, we render the html file created inside templates by:
+
+from django.shortcuts import render
+
+# Create your views here.
+
+
+def home(request):		
+	return render(request,'home.html') 
+
+
+
+
+
+
+
+
+B. APP Level
+
+a. open settings.py inside the projectname subfolder
+
+b. navigate to INSTALLED_APPS. It looks like this:
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+
+
+c. modify INSTALLED_APPS as follows:
+
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'app_name',
+]
+
+
+d. Create templates folder inside the appname folder. Inside templates folder create the html file which we want to render.
+
+
+e. views will be same as of project level.
+
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+5. models
+
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+CREATING A SIMPLE HELLO WORLD PROJECT WITHOUT USING TEMPLATE
+
+1. Create project and app using above commands
+
+=========================
+
+2. Open urls.py which is inside practiceproject subfolder and modify it as:
+
+from django.contrib import admin
+from django.urls import path
+
+# jitne views.py me functions honge, utna hume idhar import krna pdega to map the url with correct view. 
+from practiceapp.views import home
+
+from django.contrib import admin
+from django.urls import path
+# jitne views.py me functions honge, utna hume idhar import krna pdega to map the url with correct view. 
+from practiceapp.views import home
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',home)  # '' means landing page(where the user will land after running the project). So this line is indicating to land on home page after running the project. 
+
+    # path("usignup/", usignup, name="usignup") this line indicates to go to usignup page if this url is called.  
+]
+
+
+=========================
+
+
+
+3. open views.py inside practiceapp folder and modify it as:
+
+from django.shortcuts import render
+
+# import this first
+from django.http import HttpResponse
+
+# Create your views here.
+
+
+def home(request):		# Here, the request is the URL request mapping and calling the view function.
+	return HttpResponse("Hello World") 
+
+# So when the control comes to view from the corresponding url, it returns the response to the client. 
+
+
+=========================
+
+
+
+4. run your project by running this:
+	python manage.py runserver
+
+
+=========================
+
+
+EXACTLY WHAT HAPPENS INTERNALLY?
+
+Once we run the project, the control first goes to the urls.py
+In the urls.py, path('',home) the empty string represents the landing page after running the project. So here we have home, so corresponding view is called which is home in views.py
+In home function of views.py we have return statement. Hence, that statement is returned to client and is displayed on the webpage.  
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+CREATING A SIMPLE HELLO WORLD PROJECT WITHOUT USING TEMPLATE BUT THIS TIME WITH STYLE
+
+Only changes here would be in views.py
+
+
+from django.shortcuts import render
+
+# import this first
+from django.http import HttpResponse
+
+# Create your views here.
+
+
+def home(request):		# Here, the request is the URL request mapping and calling the view function.
+	
+	msg = "<html><center><h1 style = 'font-size:100px;color:red;background-color:yellow'> Hello World 2nd Time !!! OM SAKTHI PARA SAKTHI . ORE THAI ORE KULAM </h1></center></html>"
+	
+	return HttpResponse(msg) 
+
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+CREATING A SIMPLE HELLO WORLD PROJECT USING TEMPLATE AT PROJECT LEVEL  --> refer practiceproject inisde LEC1
+
+
+1. settings.py
+
+'DIRS': [BASE_DIR / 'templates'],
+
+
+2. make changes in urls.py
+
+
+3. home.htmlinside templates folder. templates folder is inside the practiceproject main folder
+
+home.html 
+
+<html>
+	<head>
+		<title> HELLO WORLD </title>
+	</head>
+
+	<body>
+		<center>
+			<h1 style = 'font-size:100px;color:red;background-color:lightgreen'> Hello World 3rd Time !!! OM SAKTHI PARA SAKTHI . AMMA NI THAN ELLAME </h1>
+		</center>
+	</body>
+</html>
+
+
+4. views.py
+
+from django.shortcuts import render
+
+# Create your views here.
+
+
+def home(request):		
+	return render(request,'home.html') 	
+
+# The render() function is used in Django views to generate the response for a request by combining the content of the html file to present it on the webpage. This is called rendering.
+We can also create dynamic webpage ysing rendering using Django Template Language, which we will see later. 
+
+
+5. run your project
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+CREATING A SIMPLE HELLO WORLD PROJECT USING TEMPLATE AT APP LEVEL --> refer pracproject1 inisde LEC1
+
+
+1. settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'pracapp1',
+]
+
+
+2. urls.py is same as above
+
+
+3. home.html inside templates folder which is inside pracapp1 folder. 
+
+home.html
+
+<html>
+	<head>
+		<title> HELLO WORLD </title>
+	</head>
+
+	<body>
+		<center>
+			<h1 style = 'font-size:80px;color:yellow;background-color:green'> Hello World 4th Time !!! OM SAKTHI PARA SAKTHI . NIYE THUNAI NIYE BALAM </h1>
+		</center>
+	</body>
+</html>
+
+
+
+4. views.py
+
+it is same as above
+
+from django.shortcuts import render
+
+# Create your views here.
+
+def home(request):
+	return render(request,'home.html')
+
+
+5. run the project
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+CREATING A SIMPLE HELLO WORLD PROJECT USING URLS AT SPP LEVEL AND TEMPLATES AT APP LEVEL --> refer pracproject2 inisde LEC1
+
+
+
+urls.py can also be created as APP LEVEl. urls.py is present by default inside the pracproject2 subfolder. But if we want, we can also create our own urls.py inside the pracapp2 folder.
+
+STEPS ARE AS FOLLOWS:
+
+1. settings.py 
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'pracapp2',
+]
+
+
+
+2. open the urls.py inside pracproject2 subfolder
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',include('pracapp2.urls'))
+]
+
+# The include() function in Django allows you to reference another app's urls.py module. This is useful when you want to organize your project into multiple apps, each with its own set of URLs.
+
+
+3. inside the pracapp2 folder create a file with name urls.py and add the following code:
+
+from django.urls import path
+from .views import home
+
+urlpatterns = [
+	path('',home),
+]
+
+
+4. inside pracapp2 folder create templates folder. Inside templates folder create home.html
+
+home.html
+
+<html>
+	<head>
+		<title> HELLO WORLD </title>
+	</head>
+
+	<body>
+		<center>
+			<h1 style = 'font-size:80px;color:yellow;background-color:red'> Hello World 5th Time !!! OM SAKTHI PARA SAKTHI . OM SAKTHI AMMAVE SARANAM AMMA  </h1>
+		</center>
+	</body>
+</html>
+
+
+5. views.py
+
+from django.shortcuts import render
+
+# Create your views here.
+
+def home(request):
+	return render(request,'home.html')
+
+
+
+6. run the project
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+* MVT ARCHITECTURE OF DJANGO
+
+Django follows the Model-View-Template (MVT) architecture pattern.
+
+
+MVT  -->  MODEL 			VIEW				TEMPLATE
+	    (Database)		(Business Logic)		(Presentation Logic)
+	    (MySQL,SQLite)	(Python)			(HTML,CSS,JavaScript)
+
+
+
+Model
+Django applications use Python objects called models to access and manage data. These models define the internal structure of the storing data, like field types and their maximum size, default values, label text for forms, etc. Models creation is independent of which database you are using. You can use any Database. You don't need to talk to the database directly. You only need to create your model structure and other code, and Django will take care of the dirty work of talking with the database.
+
+In Django, the model plays an important role of linking the whole architecture to the database. In this whole process, each and every model is connected to a single table within the database. The methods and fields associated with this process are declared in a separate file generally defined as models.py.
+
+Once the linking process is done and everything is connected to the database, we will be able to assess every row or to be more precise, record from the respective table and can even perform different DML operations accordingly on the table.
+
+Django.db.models is the subclass that is being utilised in this case. We can use Python’s default import function as “from django.db import models”.
+
+
+View
+The view is responsible for generating the HTML output that is displayed to the user. This is the part where we would be mentioning our logic. A view function in Django is a Python function that accepts a Web request and delivers a Web response. The response in Django views can be anything that a web browser can show, including the HTML of a Web page, a redirect, an XML document, a 404 error, an image, etc. 
+
+When a view file is created, the next question that comes to our minds is how to link this file to our application? How do we make sure that the framework will understand when to display a particular view? This understanding can be established by mapping the views.py in a separate urls.py file. As we discussed above, urls.py is responsible for keeping a track of all the distinct pages and hence map each of them.
+
+
+Template
+Template in Django contains the static content of a Django project like Html, CSS, and Javascript, along with the image used in the project. It also has some special syntax describing how dynamic content will be inserted, it is done using DTL(Django Template Language)
+
+
+WORKING
+
+
+
+	USER   <-->  DJANGO
+
+			    ^
+			    |
+			    v                   MODEL
+   						    /
+			   URL  <-->   VIEW  /
+						   \						
+						    \  TEMPLATE
+
+note:
+every arrows are two sided arrows
+
+
+
+Here, a user requests for a resource to the Django, Django works as a controller and check to the available resource in URL.
+
+If URL maps, a view is called that interact with model and template, it renders a template.
+
+Django responds back to the user and sends a template as a response.
+
+So, there is no separate controller and complete application is based on Model View and Template. That’s why it is called MVT application.
+
+The developer provides the Model, the view and the template then just maps it to a URL and Django does the magic to serve it to the user.
+
+
+
+------------------------------------------------------------------------------------
+
+
+DIFFERENCE BTW MVC AND MVT ARCHITECTURE
+
+MVC ARCHI
+
+Model – Model represents an object carrying data. It can also have logic to update the controller if its data changes. But, it contains no logic describing how to present the data to a user.
+View – View represents the visualization of the data that the model contains. The view knows how to access the model’s data, but it does not know what this data means.
+Controller – Controller acts on both model and view. It controls the data flow into the model object and updates the view whenever data changes. It keeps view and model separate.
+
+
+DIFFERNNCE
+
+In MVC archi, Views tells how the user data will be presented. But in MVT archi templates are used for this purpose.
+
+In MVT, the Template is mainly for presentation, while the View handles data and user interactions. In MVC, the Controller is responsible for handling user interactions and updating the Model, which in turn updates the View.
+
+The main difference between MVC and MVT architecture is that in MVC, programmers must write all the control-specific code. In MVT, the framework itself handles the controller part. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
