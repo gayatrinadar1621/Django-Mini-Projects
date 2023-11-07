@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<title> OM SAKTHI </title>
+		<style>
+			.class1 {
+				font-size:50px;
+				width:500px;
+				margin-top:100px;			
+				color:white;
+				background-color:#99003d;
+				cursor:pointer;
+				border-radius:20px;
+				transition-duration: 0.4s;	<!-- slowly transforms on hover ie with the delay of 0.4s -->
+			}
+
+			.class1:hover {
+				background-color: #ff1a75;	<!-- on hovering on button, the color changes -->
+				color: black;
+}
+
+		</style>
+	</head>
+
+	<body bgcolor = {{ color }}>		<!-- {{ color}} is a variable of the DTL -->
+		<center>
+		<form>
+			<input type = "submit", value = "RED", class = "class1", name = "r">	
+			<br><br>
+			<input type = "submit", value = "Yellow", class = "class1", name = "y">
+			<br><br>
+			<input type = "submit", value = "GREEN", class = "class1", name = "g">
+		</form>
+		</center>
+	</body>
+
+</html>
