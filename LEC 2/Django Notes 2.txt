@@ -1,0 +1,651 @@
+In this LEC2, we learn about Types of CSS and how we use them in Django. We also learn about DTL. In DTL, we see what are {{ variables }}
+
+
+*TYPES OF CSS
+
+1. Inline CSS
+An inline CSS is used to apply a unique style to a single HTML element.
+An inline CSS uses the style attribute of an HTML element. For this CSS style, you’ll only need to add the style attribute to each HTML tag, without using selectors.
+This CSS type is not really recommended, as each HTML tag needs to be styled individually. Managing your website may become too hard if you only use inline CSS.
+However, inline CSS in HTML can be useful in some situations. For example, in cases where you need to apply styles for a single element only.
+
+EG:
+<html>
+	<body style="background-color:black;">
+		<h1 style="color:white;padding:30px;">Hello World</h1>	(INLINE CSS)
+		<p style="color:white;">Something useful here.</p>			(INLINE CSS)
+	</body>
+</html>
+
+
+
+
+
+2. Internal CSS
+Internal or embedded CSS requires you to add a <style> tag in the <head> section of your HTML document. An internal CSS is used to define a style for a single HTML page.
+This CSS style is an effective method of styling a single page. However, using this style for multiple pages is time-consuming as you need to put CSS rules on every page of your website.
+
+EG: 
+
+<html>
+<head>
+    <title>Internal CSS</title>
+    <style>
+        .main {
+            text-align: center;
+        }
+ 
+        .GFG {
+            color: #009900;
+            font-size: 50px;
+            font-weight: bold;
+        }
+ 
+        .geeks {
+            font-style: bold;
+            font-size: 20px;
+        }
+    </style>
+</head>
+ 
+<body>
+    <div class="main">
+        <div class="GFG">GeeksForGeeks</div>
+ 
+        <div class="geeks">A computer science portal for geeks</div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+3. External CSS:
+An external style sheet is used to define the style for many HTML pages. 
+CSS property is written in a separate file with a .css extension and should be linked to the HTML document using a link tag. It means that, for each element, style can be set only once and will be applied across web pages.
+The external style sheet can be written in any text editor. The file must not contain any HTML code, and must be saved with a .css extension.
+
+EG:
+<html>
+<head>
+    <link rel="stylesheet" href="geeks.css" />
+</head>
+ 
+<body>
+    <div class="main">
+        <div class="GFG">GeeksForGeeks</div>
+        <div id="geeks">
+            A computer science portal for geeks
+        </div>
+    </div>
+</body>
+</html>
+
+link tag is used to link the external style sheet with the html webpage.
+href attribute is used to specify the location of the external style sheet file.
+
+geeks.css
+
+body {
+    background-color:powderblue;
+}
+.main {
+    text-align:center;   
+}
+.GFG {
+    color:#009900;
+    font-size:50px;
+    font-weight:bold;
+}
+#geeks {
+    font-style:bold;
+    font-size:20px;
+}
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+* CSS SELECTORS
+
+There are different CSS Selectors, each telling which HTML element is to be styled.
+
+We can divide CSS selectors into five categories:
+
+Simple selectors (select elements based on name, id, class)
+Combinator selectors (select elements based on a specific relationship between them)
+Pseudo-class selectors (select elements based on a certain state)
+Pseudo-elements selectors (select and style a part of an element)
+Attribute selectors (select elements based on an attribute or attribute value)
+
+BASIC CSS SELECTORS ARE:
+
+1. CSS element Selector - The element selector selects HTML elements based on the element name.
+
+eg:
+Here, all <p> elements on the page will be center-aligned, with a red text color: 
+
+<html>
+<head>
+<style>
+p {
+  text-align: center;
+  color: red;
+} 
+</style>
+</head>
+<body>
+
+<p>Every paragraph will be affected by the style.</p>
+<p id="para1">Me too!</p>
+<p>And me!</p>
+
+</body>
+</html>
+
+========================================
+
+2. CSS id Selector
+The id selector uses the id attribute of an HTML element to select a specific element.
+The id of an element is unique within a page, so the id selector is used to select one unique element!
+To select an element with a specific id, write a hash (#) character, followed by the id of the element.
+An id name cannot start with a number!
+
+eg:
+
+<html>
+<head>
+<style>
+#para1 {
+  text-align: center;
+  color: red;
+}
+</style>
+</head>
+<body>
+
+<p id="para1">Hello World!</p>
+<p>This paragraph is not affected by the style.</p>
+
+</body>
+</html>
+
+
+
+========================================
+
+
+3. CSS class Selector
+The class selector selects HTML elements with a specific class attribute.
+To select elements with a specific class, write a period (.) character, followed by the class name.
+A class name cannot start with a number!
+
+
+eg:
+
+<html>
+<head>
+<style>
+.center {
+  text-align: center;
+  color: red;
+}
+</style>
+</head>
+<body>
+
+<h1 class="center">Red and center-aligned heading</h1>
+<p class="center">Red and center-aligned paragraph.</p> 
+
+</body>
+</html>
+
+
+
+You can also specify that only specific HTML elements should be affected by a class.
+
+eg:
+
+p.center {
+  text-align: center;
+  color: red;
+}
+
+
+HTML elements can also refer to more than one class.
+
+eg: In this example the <p> element will be styled according to class="center" and to class="large": 
+
+<p class="center large">This paragraph refers to two classes.</p>
+
+
+
+
+
+
+========================================
+
+
+4. CSS Universal Selector
+The universal selector (*) selects all HTML elements on the page.
+
+eg:
+<html>
+<head>
+<style>
+* {
+  text-align: center;
+  color: blue;
+}
+</style>
+</head>
+<body>
+
+<h1>Hello world!</h1>
+
+<p>Every element on the page will be affected by the style.</p>
+<p id="para1">Me too!</p>
+<p>And me!</p>
+
+</body>
+</html>
+
+
+
+
+========================================
+
+
+
+5. CSS Grouping Selector
+The grouping selector selects all the HTML elements with the same style definitions.
+
+eg:
+<html>
+<head>
+<style>
+h1, h2, p {
+  text-align: center;
+  color: red;
+}
+</style>
+</head>
+<body>
+
+<h1>Hello World!</h1>
+<h2>Smaller heading!</h2>
+<p>This is a paragraph.</p>
+
+</body>
+</html>
+
+
+
+========================================
+
+If there are two or more CSS rules that point to the same element, the selector with the highest specificity value will "win", and its style declaration will be applied to that HTML element.
+
+There are four categories which define the specificity level of a selector:
+
+Inline styles - Example: <h1 style="color: pink;">
+IDs - Example: #navbar
+Classes, pseudo-classes, attribute selectors - Example: .test, :hover, [href]
+Elements and pseudo-elements - Example: h1, ::before
+
+
+========================================
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE A SMALL PROJECT TO SHOW INTERNAL CSS AND THE USE OF {{ variable }} AS A PART OF DJANGO TEMPLATE LANGUAGE --> refer pracproject1 in LEC 2
+
+{{ variable }}
+A variable looks like this: {{variable}}. The template replaces the variable by the variable sent by the view in the third parameter of the render function. 
+
+
+
+1. settings.py 
+
+We create templates at project level, so we modify the TEMPLATES inside settings.py
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR/'templates'],
+
+
+
+
+
+2. urls.py
+
+from django.contrib import admin
+from django.urls import path
+from pracapp.views import home
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',home)
+]
+
+
+
+
+3. inside pracproject main folder create a folder templates --> inside templates create a file, home.html
+
+<html>
+	<head>
+		<title> OM SAKTHI </title>
+		<style>
+			.class1 {
+				font-size:50px;
+				width:500px;
+				margin-top:100px;			<!-- gives a top margin before every button -->
+				color:white;
+				background-color:#99003d;
+				cursor:pointer;
+				border-radius:20px;
+				transition-duration: 0.4s;	<!-- slowly transforms on hover ie with the delay of 0.4s -->
+			}
+
+			.class1:hover {
+				background-color: #ff1a75;	<!-- on hovering on button, the color changes -->
+				color: black;
+}
+
+		</style>
+	</head>
+
+	<body bgcolor = {{ color }}>		<!-- {{ color}} is a variable of the DTL -->
+		<center>
+		<form>
+			<input type = "submit", value = "RED", class = "class1", name = "r">	
+			<br><br>
+			<input type = "submit", value = "Yellow", class = "class1", name = "y">
+			<br><br>
+			<input type = "submit", value = "GREEN", class = "class1", name = "g">
+		</form>
+		</center>
+	</body>
+
+</html>
+
+
+
+
+value --> whatever is written inside value is displayed on the buttons to the user
+name --> it is used for backend purpose to identify which button user has clicked
+
+
+
+
+
+4. views.py
+
+from django.shortcuts import render
+
+# Create your views here.
+
+def home(request):
+	if request.GET.get('r'):
+		return render(request, 'home.html', {'color':'red'})
+	elif request.GET.get('y'):
+		return render(request, 'home.html', {'color':'yelow'})
+	elif request.GET.get('g'):
+		return render(request, 'home.html', {'color':'green'})
+	else:
+		return render(request, 'home.html')
+
+
+
+WORKING:
+
+Control first goes to urls.py and the landing page is home.html, so the url maps to the corresponding view.
+Inside views, it finds the function home. It checks all the if elif statements. Everything comes as false, and then else is executed and the user is able to see home.html
+If we don't write to render home.html, we get error as we have not specified the landing page. 
+Now user sees home.html and decides to click RED Button, after clicking on it, the 'r' is picked up by Python as the name given to it is 'r', so it renders home.html with the color as red.
+Now as we already have written <body bgcolor = {{ color }}>	, the {{ color }} will get the value of red.
+
+So in a nutshell, the name written inside the input type is useful for Python to understand which button user is clicking. And accordingly, Python renders home.html with appropriate color. The DTL variable, {{ color }} then applies the value which it got from views as the background color. 
+
+
+NOTE - 
+here we have used INTERNAL CSS using class Selector at PROJECT LEVEL
+We can create INTERNAL CSS at APP LEVEL also. The process is same. Only we follow APP LEVEL
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+CREATE A SMALL PROJECT TO SHOW EXTERNAL CSS AND THE USE OF {% load static %} and {% static %} AS A PART OF DJANGO TEMPLATE LANGUAGE 
+
+
+We can create EXTERNALL CSS at both PROJECT and APP level. And unlike Internal CSS, there is changes in both levels.
+
+Whenever we use external CSS, we use {% load static %} at the top of our html file. 
+
+{% load static %} is a DTL tags. Tags look like this: {% tag %}. Tags are more complex than variables: Some create text in the output, some control flow by performing loops or logic, and some load external information into the template to be used by later variables. 
+
+In Django, static files such as images, External CSS, Javascript are kept seperately inside separte folders of templates folder. 
+
+The {% load static %} tag is a convenient way to access static files in your Django templates. By using this tag, you can easily add CSS, JavaScript, and image files to your templates.
+
+Once you have added the {% load static %} tag, you can then use the {% static %} tag to access static files. The {% static %} tag takes a single argument, which is the path to the static file you want to access. The {% static %} tag will return the URL to the static file. You can then use this URL to link to the file in your template.
+
+
+
+
+=================================================================================
+
+AT PROJECT LEVEL
+
+1. settings.py
+
+We make changes in the DIRS
+Then we add this line at the end before STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [BASE_DIR/'static']
+
+
+2. urls.py
+
+same as above
+
+
+3.  inside projectname main folder create a folder templates --> inside templates create a file, home.html
+
+home.html
+
+{% load static %}
+
+<html>
+	<head>
+		<title> OM SAKTHI </title>
+		<link rel="stylesheet" href="{% static 'c1.css'%}">
+	</head>
+
+	<body bgcolor = {{ color }}>		
+		<center>
+		<form>
+			<input type = "submit", value = "RED", class = "class1", name = "r">	
+			<br><br>
+			<input type = "submit", value = "Yellow", class = "class1", name = "y">
+			<br><br>
+			<input type = "submit", value = "GREEN", class = "class1", name = "g">
+		</form>
+		</center>
+	</body>
+
+</html>
+
+
+
+4. in the projectname main folder, create a folder with name static. Inside static folder create a file c1.css and add following
+
+.class1 {
+	font-size:50px;
+	width:500px;
+	margin-top:100px;			<!-- gives a top margin before every button -->
+	color:white;
+	background-color:#99003d;
+	cursor:pointer;
+	border-radius:20px;
+	transition-duration: 0.4s;	<!-- slowly transforms on hover ie with the delay of 0.4s -->
+	}
+
+.class1:hover {
+	background-color: #ff1a75;	<!-- on hovering on button, the color changes -->
+	color: black;
+}
+
+
+
+5. views.py 
+
+same as above
+
+6. run the project
+
+
+
+
+
+
+
+=================================================================================
+
+AT APP LEVEL
+
+refer pracproject2 in LEC 2
+
+
+1. settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'pracapp',
+]
+
+
+
+2. urls.py
+
+same as above
+
+from django.contrib import admin
+from django.urls import path
+from pracapp.views import home
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',home)
+]
+
+
+
+3. Create templates folder inside pracapp folder. Inside templates folder create home.html
+
+
+{% load static %}
+
+<html>
+	<head>
+		<title> OM SAKTHI </title>
+		<link rel="stylesheet" href="{% static 'css/c1.css'%}" >
+	</head>
+
+
+	<body bgcolor = {{ color }}>		
+		<center>
+		<form>
+			<input type = "submit", value = "RED", class = "class1", name = "r">	
+			<br><br>
+			<input type = "submit", value = "Yellow", class = "class1", name = "y">
+			<br><br>
+			<input type = "submit", value = "GREEN", class = "class1", name = "g">
+		</form>
+		</center>
+	</body>
+
+</html>
+
+
+
+
+
+
+4. Create static folder inside pracapp folder. Inside static folder create css folder. Inside css folder create c1.css
+We create a separate css folder as, if in future we want to add images, then we need to keep them inside separate images folder.
+
+c1.css
+
+.class1 {
+	font-size:50px;
+	width:500px;
+	margin-top:100px;			<!-- gives a top margin before every button -->
+	color:white;
+	background-color:#99003d;
+	cursor:pointer;
+	border-radius:20px;
+	transition-duration: 0.4s;	<!-- slowly transforms on hover ie with the delay of 0.4s -->
+	}
+
+.class1:hover {
+	background-color: #ff1a75;	<!-- on hovering on button, the color changes -->
+	color: black;
+}
+
+
+
+
+5. views.py
+
+from django.shortcuts import render
+
+# Create your views here.
+
+def home(request):
+	if request.GET.get('r'):
+		return render(request, 'home.html', {'color':'#ff4d4d'})
+	elif request.GET.get('y'):
+		return render(request, 'home.html', {'color':'#ffff4d'})
+	elif request.GET.get('g'):
+		return render(request, 'home.html', {'color':'#47d147'})
+	else:
+		return render(request, 'home.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
