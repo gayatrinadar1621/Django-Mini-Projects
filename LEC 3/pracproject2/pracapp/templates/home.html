@@ -1,0 +1,66 @@
+{% load static %}
+
+<html>
+	<head>
+		<title> POSTERS </title>
+		<style>
+
+			.class1{ font-size: 40px;
+			font-family: courier;
+			margin-left: 80px;
+			width: 400px;
+			border-radius: 25px;
+			background-color: pink;
+			cursor: pointer;
+
+		}
+			.class2 {font-size: 50px;
+			font-family: courier;
+
+		}
+		</style>
+	</head>
+
+	<body>
+		<center>
+		
+		<form method = "POST">
+		{% csrf_token %}
+			<h2 class="class2"> Select the film to reveal the poster </h2>
+			<br><br>
+			<input type = "submit" value="Harry Potter" class="class1" name="hp">
+			<input type = "submit" value="Twilight" class="class1" name="twi">
+			<input type = "submit" value="Maze Runner" class="class1" name="maze">
+
+		</form>
+
+		{% if picture == "HP" %}
+			<img src = "{% static 'images/hp.jpg' %}" height=500px width=500px> 
+		{% elif picture == "TWI" %}
+			<img src = "{% static 'images/twi.jpg' %}" height=500px width=500px>
+		{% elif picture == "MAZE" %}
+			<img src = "{% static 'images/maze.jpg' %}" height=500px width=500px>
+
+		{% endif %}
+		
+		
+		</center>
+
+	</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
