@@ -1,0 +1,386 @@
+In this LEC3, we practice some basic projects using Django. 
+We learn GET and POST method of forms. 
+Then we also explore if else Django Template Tags as a part of DTL
+
+====================================================================================================================================================================
+
+
+
+In HTML, a form is a collection of elements inside <form>…</form> that allow a visitor to do things like entering text, select options, manipulate objects or controls, and so on, and then send that information back to the server. Basically, it is a collection of data for processing it for any purpose including saving it in the database or fetching data from the database. 
+
+
+While using forms in HTML, we can gave two methods, GET and POST
+
+GET METHOD:
+When you retrieve information via GET request the information that your user enters in input field is reflected in URL of the request. As the information is displayed in the URL, sensitive data should not use GET method. It is not safe as if the hacker is able to retrieve the URL your user’s information will be vulnerable. But if the data entered is not that important unlike username and password GET is preferred as it is efficient with the time simply because it appends the information to the URL.
+
+This is how the GET request works -->  whatever be the number of inputs they would be appended to the URL to send the data to the back end of an application. 
+
+By default, GET Method is used. So to retrive the entered data by the user to perform logic in views.py, we write this --> request.GET.get('n1'), here n1 is the name given to that field in home.html
+request.GET returns a query dictionary that one can access like any other python dictionary and finally use its data for applying some logic. 
+The key of the dictionary is the input field value and the value is the data we want. Hence to access the value, we write request.GET.get('n1')
+
+
+
+POST METHOD:
+
+When you retrieve information via POST request the information that your user enters in input field is first encrypted and then reflected in URL.
+
+To use POST Method, we make changes in home.html :
+
+<form method = "POST">
+{% csrf_token %}
+
+Django has a {% csrf_token %} tag that is implemented to avoid malicious attacks. It generates a token on the server-side when rendering the page and makes sure to cross-check this token for any requests coming back in. If the incoming requests do not contain the token, they are not executed. With this simple addition, CSRF attacks can be avoided, thereby ensuring the security of post requests from a user to the server.
+
+While retriveing the data from user, we use request.POST.get('n1')
+
+
+====================================================================================================================================================================
+
+
+{% if %} tags
+
+SYNTAX:
+
+{% if condition %}
+// statements
+
+{% elif condition %}
+// statements
+
+{% else %}
+// statements
+
+{% endif %}
+
+
+
+As it is a DTL , we make use of them in html files to display the output to the user accordingly. 
+
+The if tag allows you to write conditional statements.
+
+Use if statements to output a block of code if a condition is true.
+
+You can use else or elif to specify what to do when the if condition is false.
+
+
+
+
+
+====================================================================================================================================================================
+
+
+
+ 
+SMALL PROJECT TO ADD TWO NUMBERS, ALSO FIND SQUARE AND CUBE OF A GIVEN Number IN DJANGO using GET method--> refer pracproject1 in LEC3
+
+1. settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'pracapp',
+]
+
+
+
+
+-----------------------------------------------------
+
+2. urls.py
+
+from django.contrib import admin
+from django.urls import path
+from pracapp.views import home
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',home)
+]
+
+
+
+-----------------------------------------------------
+
+
+
+
+
+3. create templates folder inside pracapp folder. Inside templates folder, create home.html
+
+
+<html>
+	<head>
+		<title> AMMA THAYE </title>
+		<style>
+			* {font-size:20px;
+			margin-top:40px;
+			font-family:robota;
+		}
+	
+		.class1{ width:400px;
+			height:40px;
+			background-color:#CC99FF;	
+		}
+
+		.class2 { border-radius:20px;
+			width: 150px;
+			height: 40px;
+		}
+
+		.class3 { color:#F5F5F5;
+			font-size:35px;
+			font-family:robota;
+		}
+		</style>
+	
+	</head>
+
+	<body bgcolor='#9966CC'>
+		<center>
+		<form>
+			<input type = "number", name="n1", class="class1" placeholder="Enter first number" autocomplete="off">
+			<br><br>
+			<input type = "number", name="n2", class="class1" placeholder="Enter second number" autocomplete="off">
+			<br><br>
+			<input type = "submit", class="class2" value="ADD">
+			<br><br>
+		</form>
+		<h3 class="class3">{{msg}}</h3>
+
+		<form>
+			<input type = "number", name="n3", class="class1" placeholder="Enter number" autocomplete="off" step="any">	
+			<br><br>
+			<input type = "submit", class="class2" value="SQUARE" name="sqr">
+			
+			<input type = "submit", class="class2" value="CUBE" name="cube">
+		</form>
+		
+		
+		<br><br>
+		<h3 class="class3">{{ans}}</h3>
+
+		</center>
+		
+	</body>
+</html>
+
+
+
+step="any" is useful for input to accept float values. step says what is the valid input the number field can take. If step=3, then the number field can only take input whic are multiples of 3. The default value is 1. So for the fiel to ccpet float values, we set step="any"
+
+
+
+
+-----------------------------------------------------
+
+
+
+
+
+4. views.py
+
+from django.shortcuts import render
+
+# Create your views here.
+
+def home(request):
+	if request.GET.get('n1') and request.GET.get('n2'):
+		n1 = int(request.GET.get('n1'))
+		n2 = int(request.GET.get('n2'))
+
+		msg = "Addition of " + str(n1) + " and " + str(n2) + " is " + str(n1+n2)
+		return render(request, 'home.html', {'msg':msg})
+
+
+	if request.GET.get('sqr'):
+		n3 = float(request.GET.get('n3'))
+	
+		ans = "Square of " + str(n3) +  " is " + str(n3*n3)
+		return render(request, 'home.html', {'ans':ans})
+
+	elif request.GET.get('cube'):
+		n3 = float(request.GET.get('n3'))
+	
+		ans = "Cube of " + str(n3) +  " is " + str(n3*n3*n3)
+		return render(request, 'home.html', {'ans':ans})
+
+	else:
+		return render(request, 'home.html')
+
+
+
+
+
+
+
+===================================================================================================================================================================
+
+
+
+
+SMALL PROJECT TO IMPLEMENT POST METHOD AND if tags IN DJANGO  --> refer pracproject2 in LEC3
+
+
+The aim of the project is to display correct image according to the word written on the button. We have 3 buttons with film names. On clicking a particular button, the poster of that film should be displayed. 
+
+
+
+1. settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'pracapp',
+]
+
+
+
+
+2. urls.py
+
+
+from django.contrib import admin
+from django.urls import path
+from pracapp.views import home
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',home)
+]
+
+
+
+
+3. create static folder inside pracapp. Inside static folder, create images folder and add images. 
+
+
+4. create templates folder inside pracapp. Create home.html in templates folder.
+
+
+{% load static %}
+
+<html>
+	<head>
+		<title> POSTERS </title>
+		<style>
+
+			.class1{ font-size: 40px;
+			font-family: courier;
+			margin-left: 80px;
+			width: 400px;
+			border-radius: 25px;
+			background-color: pink;
+			cursor: pointer;
+
+		}
+			.class2 {font-size: 50px;
+			font-family: courier;
+
+		}
+		</style>
+	</head>
+
+	<body>
+		<center>
+		
+		<form method = "POST">
+		{% csrf_token %}
+			<h2 class="class2"> Select the film to reveal the poster </h2>
+			<br><br>
+			<input type = "submit" value="Harry Potter" class="class1" name="hp">
+			<input type = "submit" value="Twilight" class="class1" name="twi">
+			<input type = "submit" value="Maze Runner" class="class1" name="maze">
+
+		</form>
+
+		{% if picture == "HP" %}
+			<img src = "{% static 'images/hp.jpg' %}" height=500px width=500px> 
+		{% elif picture == "TWI" %}
+			<img src = "{% static 'images/twi.jpg' %}" height=500px width=500px>
+		{% elif picture == "MAZE" %}
+			<img src = "{% static 'images/maze.jpg' %}" height=500px width=500px>
+
+		{% endif %}
+		
+		
+		</center>
+
+	</body>
+
+</html>
+
+
+
+
+5. views.py
+
+
+from django.shortcuts import render
+
+# Create your views here.
+
+def home(request):
+	if request.POST.get('hp'):
+		return render(request,'home.html',{'picture':'HP'})
+
+	elif request.POST.get('twi'):
+		return render(request,'home.html',{'picture':'TWI'})
+
+	elif request.POST.get('maze'):
+		return render(request,'home.html',{'picture':'MAZE'})
+
+	else:
+		return render(request,'home.html')
+
+	
+
+6. run
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
