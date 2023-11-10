@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<title> AMMA THAYE </title>
+		<style>
+			* {font-size:20px;
+			margin-top:40px;
+			font-family:robota;
+		}
+	
+		.class1{ width:400px;
+			height:40px;
+			background-color:#CC99FF;	
+		}
+
+		.class2 { border-radius:20px;
+			width: 150px;
+			height: 40px;
+		}
+
+		.class3 { color:#F5F5F5;
+			font-size:35px;
+			font-family:robota;
+		}
+		</style>
+	
+	</head>
+
+	<body bgcolor='#9966CC'>
+		<center>
+		<form>
+			<input type = "number", name="n1", class="class1" placeholder="Enter first number" autocomplete="off">
+			<br><br>
+			<input type = "number", name="n2", class="class1" placeholder="Enter second number" autocomplete="off">
+			<br><br>
+			<input type = "submit", class="class2" value="ADD">
+			<br><br>
+		</form>
+		<h3 class="class3">{{msg}}</h3>
+
+		<form>
+			<input type = "number", name="n3", class="class1" placeholder="Enter number" autocomplete="off" step="any">	
+			<br><br>
+			<input type = "submit", class="class2" value="SQUARE" name="sqr">
+			
+			<input type = "submit", class="class2" value="CUBE" name="cube">
+		</form>
+		
+		
+		<br><br>
+		<h3 class="class3">{{ans}}</h3>
+
+		</center>
+		
+	</body>
+</html>
